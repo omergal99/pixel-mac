@@ -1,0 +1,54 @@
+.header {
+  height: 18px;
+  background-color: rgb(206, 204, 224);
+  .container-left, 
+  .container-right{
+    margin: auto 0;
+    padding: 0 12px;
+    .icons {
+      height: 14px;
+    }
+    .left-list,
+    .right-list {
+      font-size: .75em;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+    .left-list{
+      li {
+        padding: 0 6px;
+      }
+    }
+    .right-list {
+      li {
+        padding: 0 4px;
+      }
+    }
+  }
+  .container-left{
+    img{
+      padding: 0 6px;
+    }
+  }
+  .container-right{
+    img{
+      padding: 0 4px;
+    }
+  }
+}
+
+.body {
+  .bc-img {
+    min-height: 200px;
+    height: calc(100vh - 18px);
+    max-height: 100vh;
+    width: 100%;
+    background-color: #7f7f7f;
+    background-image: url("../img/global/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-blend-mode: unset;
+    background-position: center;
+  }
+}

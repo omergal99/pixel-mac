@@ -1,0 +1,28 @@
+.desktop {
+  min-height: 200px;
+  height: calc(100vh - 18px);
+  max-height: 100vh;
+  width: 100%;
+  background-color: #7f7f7f;
+  background-image: url("../img/global/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-blend-mode: unset;
+  background-position: center;
+  .mama {
+    height: 500px;
+    width: 300px;
+    background-color: rgba(0, 128, 0, 0.541);
+    position: absolute;
+    top: 80px;
+    left: 200px;
+  }
+  .dada {
+    height: 400px;
+    width: 400px;
+    background-color: rgba(0, 77, 128, 0.541);
+    position: absolute;
+    top: 140px;
+    left: 400px;
+  }
+}

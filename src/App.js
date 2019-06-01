@@ -3,14 +3,14 @@ import './assets/css/App.scss';
 
 //CMPS
 import Header from './cmps/Header';
-import Body from './cmps/Body';
+import Desktop from './cmps/Desktop';
 import Dock from './cmps/Dock';
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Body />
+      <Desktop />
       <Dock />
     </div>
   );

@@ -17,7 +17,7 @@ class Header extends Component {
 
   cleanElements() {
     var options = document.querySelectorAll("li, .icons");
-    options.forEach(function (el) { // element
+    options.forEach(el => { // element
       el.classList.remove('blue');
     });
   }

@@ -11,63 +11,79 @@ class Desktop extends Component {
 
   state = {
     isDraging: false,
+    currDragName: 'div1',
+    pointerDiff: { x: 1, y: 1 },
+    generalZIndex: { lastCurrDragName: '', num: 1 },
     windows: {
       div1: {
+        name: 'div1',
         isOpen: true,
-        size: { x: 100, y: 200 },
+        size: { x: 600, y: 400 },
         location: { x: 20, y: 300 },
-        class: 'mama2',
-        bc: 'rgba(0, 50, 50, 0.841)'
+        bc: 'rgba(0, 50, 50, 0.841)',
+        zIndex: 0
       }
       ,
       div2: {
+        name: 'div2',
         isOpen: true,
-        size: { x: 300, y: 400 },
-        location: { x: 190, y: 30 },
-        class: 'mama2',
-        bc: 'rgba(150, 20, 80, 0.741)'
+        size: { x: 700, y: 550 },
+        location: { x: 190, y: 90 },
+        bc: 'rgba(150, 20, 80, 0.741)',
+        zIndex: 0
       }
     }
   }
 
   handleMove(ev) {
-    console.log('ev: ', ev);
+    // console.log('ev: ', ev);
     if (this.state) {
-      var copy = this.state.windows;
-      copy.div2.location = { x: ev.clientX - 5, y: ev.clientY - 5 }
-      this.setState({ windows: copy })
+      var copyState = this.state.windows;
+
+      if (!this.state.isDraging) {
+        var diffX = ev.clientX - copyState[this.state.currDragName].location.x;
+        var diffY = ev.clientY - copyState[this.state.currDragName].location.y;
+        this.setState({ pointerDiff: { x: diffX, y: diffY } })
+
+        if (this.state.currDragName !== this.state.generalZIndex.lastCurrDragName) {
+          var heighestZ = this.state.generalZIndex.num;
+          copyState[this.state.currDragName].zIndex = heighestZ;
+          this.setState({ generalZIndex: { lastCurrDragName: this.state.currDragName, num: heighestZ + 1 } })
+        }
+      }
+
+      var x = ev.clientX - this.state.pointerDiff.x;
+      var y = ev.clientY - this.state.pointerDiff.y;
+      copyState[this.state.currDragName].location = { x, y }
+      this.setState({ windows: copyState, isDraging: true })
     }
   }
 
-  mouseDown(el) {
-    console.log('el.target: ', el.target);
-    // console.log('window',window.innerHeight);
-    // console.log('window',window.innerWidth);
+  // console.log('window',window.innerHeight);
+  // console.log('window',window.innerWidth);
 
-    // document.addEventListener('mousemove', this.handleMove(), false);
-    // document.addEventListener('mousemove', this.handleMove, false);
+  mouseDown(ev) {
+    // console.log('ev.target: ', ev.target);
+    // console.log(ev.target.getAttribute('data-name'));
+
+    // this.setState({ currDragName: ev.target.getAttribute('data-name') });
+    this.setState({ currDragName: ev.target.dataset.name });
+
     document.addEventListener('mousemove', this.handleMove, false);
 
-    // ev.target.onmouseup = () =>{
     document.onmouseup = () => {
-      console.log('onmouseup >> STOPING mousemove EventListener');
+      // console.log('onmouseup >> STOPING mousemove EventListener');
       document.removeEventListener('mousemove', this.handleMove, false);
+      this.setState({ isDraging: false })
     };
-
   }
 
   render() {
     var copyWindows = this.state.windows;
     var allWindows = [copyWindows.div1, copyWindows.div2];
-    var openWindows = allWindows.map((div) => {
-      return <div onMouseDown={this.mouseDown.bind(this)} className={div.class}
-        style={{
-          height: `${div.size.y}px`, width: `${div.size.x}px`,
-          top: `${div.location.y}px`, left: `${div.location.x}px`,
-          backgroundColor: `${div.bc}`, position: 'absolute'
-        }}
-      ></div>
-    })
+    var openWindows = allWindows.map((div) => (
+      <Folder MouseDown={this.mouseDown.bind(this)} window={div} />
+    ))
     return (
       <div className="desktop">
         {/* <div style={{height: '800px',width:' 880px',top: '0px',left: '0px'}} 
@@ -77,7 +93,7 @@ class Desktop extends Component {
         {openWindows[0]}
         {openWindows[1]}
 
-        <Folder/>
+        {/* <Folder /> */}
 
       </div>
     )

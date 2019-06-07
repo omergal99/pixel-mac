@@ -1,7 +1,7 @@
 .folder {
   z-index: 5;
-  height: 550px;
   width: 700px;
+  height: 550px;
   top: 150px;
   left: 150px;
   background-color: rgb(177, 129, 58);
@@ -20,10 +20,46 @@
     border-right: 0.5px solid rgba(167, 167, 167, 0.5);
     // border-top: 0.5px solid rgba(167, 167, 167, 0.5);
     text-align: center;
-    .window-controls{
+    .window-controls {
       position: absolute;
       top: 4px;
       left: 8px;
+      .close,
+      .expend,
+      .minimize {
+        display: inline-block;
+        width: 16px;
+        height: 15px;
+        background-image: url(/assets/img/icons/window-options.png);
+        background-size: 68px;
+        background-repeat: no-repeat;
+        &:not(.minimize) {
+          margin-right: 5px;
+        }
+      }
+      .close {
+        background-position: -10px -11px;
+        &:hover {
+          background-position: -10px -26.5px;
+        }
+      }
+      .expend {
+        background-position: -27px -11px;
+        &:hover {
+          background-position: -27px -26.5px;
+        }
+      }
+      .minimize {
+        background-position: -43px -11px;
+        &:hover {
+          background-position: -43px -26.5px;
+        }
+      }
+    }
+    label{
+      font-size: 14px;
+      color: $clr1;
+      font-family: sans_pro;
     }
   }
 
@@ -52,3 +88,41 @@
     border-bottom: 0.5px solid rgba(167, 167, 167, 0.5);
   }
 }
+
+
+// .window-controls {
+//   position: absolute;
+//   top: 4px;
+//   left: 8px;
+//   .close,
+//   .expend,
+//   .minimize {
+//     display: inline-block;
+//     width: 13px;
+//     height: 13px;
+//     background-image: url(/assets/img/icons/window-options.png);
+//     background-size: 60px;
+//     background-repeat: no-repeat;
+//     &:not(.minimize) {
+//       margin-right: 5px;
+//     }
+//   }
+//   .close {
+//     background-position: -9px -9.5px;
+//     &:hover {
+//       background-position: -9px -22.95px;
+//     }
+//   }
+//   .expend {
+//     background-position: -23.5px -9.5px;
+//     &:hover {
+//       background-position: -23.5px -22.95px;
+//     }
+//   }
+//   .minimize {
+//     background-position: -38px -9.5px;
+//     &:hover {
+//       background-position: -38px -22.95px;
+//     }
+//   }
+// }

@@ -1,18 +1,18 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fb1760798dd03434617f342095b4e849",
+    "revision": "5e800e80f9496b400fd4ddbedcaeac94",
     "url": "/pixel-mac/index.html"
   },
   {
-    "revision": "03c2f2340f8a235f9ef4",
-    "url": "/pixel-mac/static/css/main.8df7547f.chunk.css"
+    "revision": "a30e628aed85880a69a8",
+    "url": "/pixel-mac/static/css/main.c23bfe21.chunk.css"
   },
   {
     "revision": "5fca2c286303de9d5954",
     "url": "/pixel-mac/static/js/2.e2bc4550.chunk.js"
   },
   {
-    "revision": "03c2f2340f8a235f9ef4",
+    "revision": "a30e628aed85880a69a8",
     "url": "/pixel-mac/static/js/main.1c3492e0.chunk.js"
   },
   {
@@ -42,5 +42,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "0a956a90255e5c6772f56b918337ade5",
     "url": "/pixel-mac/static/media/background.0a956a90.jpg"
+  },
+  {
+    "revision": "58f71e961b4818cd5f62193ae16bd6d0",
+    "url": "/pixel-mac/static/media/window-options.58f71e96.png"
   }
 ]);

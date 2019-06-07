@@ -30,7 +30,7 @@
         display: inline-block;
         width: 16px;
         height: 15px;
-        background-image: url(/assets/img/icons/window-options.png);
+        background-image: url("../img/icons/window-options.png");
         background-size: 68px;
         background-repeat: no-repeat;
         &:not(.minimize) {
@@ -40,19 +40,19 @@
       .close {
         background-position: -10px -11px;
         &:hover {
-          background-position: -10px -26.5px;
+          background-position: -10px -26.2px;
         }
       }
       .expend {
-        background-position: -27px -11px;
+        background-position: -26px -11px;
         &:hover {
-          background-position: -27px -26.5px;
+          background-position: -26px -26.2px;
         }
       }
       .minimize {
-        background-position: -43px -11px;
+        background-position: -42px -11px;
         &:hover {
-          background-position: -43px -26.5px;
+          background-position: -42px -26.2px;
         }
       }
     }

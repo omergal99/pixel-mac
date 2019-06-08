@@ -1,16 +1,18 @@
 .folder {
-  z-index: 5;
   width: 700px;
   height: 550px;
   top: 150px;
   left: 150px;
-  background-color: rgb(177, 129, 58);
   position: absolute;
+
   border-radius: 6px;
   box-shadow: 0px 4px 23px 10px rgba(0, 0, 0, 0.42);
   display: grid;
   grid-template-columns: 140px 1fr;
   grid-template-rows: 22px 32px 1fr;
+  .drag-drop {
+    grid-area: 1 / 1 / 2 / 3;
+  }
 
   .top {
     border-radius: 6px 6px 0 0;
@@ -33,7 +35,7 @@
         background-image: url("../img/icons/window-options.png");
         background-size: 68px;
         background-repeat: no-repeat;
-        &:not(.minimize) {
+        &:not(.expend) {
           margin-right: 5px;
         }
       }
@@ -43,20 +45,20 @@
           background-position: -10px -26.2px;
         }
       }
-      .expend {
+      .minimize {
         background-position: -26px -11px;
         &:hover {
           background-position: -26px -26.2px;
         }
       }
-      .minimize {
+      .expend {
         background-position: -42px -11px;
         &:hover {
           background-position: -42px -26.2px;
         }
       }
     }
-    label{
+    label {
       font-size: 14px;
       color: $clr1;
       font-family: sans_pro;
@@ -88,7 +90,6 @@
     border-bottom: 0.5px solid rgba(167, 167, 167, 0.5);
   }
 }
-
 
 // .window-controls {
 //   position: absolute;

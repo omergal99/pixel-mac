@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5e800e80f9496b400fd4ddbedcaeac94",
+    "revision": "f30df27c26c62219717cd0a1bee95d9e",
     "url": "/pixel-mac/index.html"
   },
   {
-    "revision": "a30e628aed85880a69a8",
-    "url": "/pixel-mac/static/css/main.c23bfe21.chunk.css"
+    "revision": "0bd728e346a65453539f",
+    "url": "/pixel-mac/static/css/main.68312332.chunk.css"
   },
   {
     "revision": "5fca2c286303de9d5954",
     "url": "/pixel-mac/static/js/2.e2bc4550.chunk.js"
   },
   {
-    "revision": "a30e628aed85880a69a8",
-    "url": "/pixel-mac/static/js/main.1c3492e0.chunk.js"
+    "revision": "0bd728e346a65453539f",
+    "url": "/pixel-mac/static/js/main.a5282ada.chunk.js"
   },
   {
     "revision": "aaf9befbd07b4be857d3",

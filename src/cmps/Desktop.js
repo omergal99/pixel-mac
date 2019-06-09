@@ -94,6 +94,7 @@ class Desktop extends Component {
     switch (clickType) {
       case 'close':
         console.log('closing...');
+        this.closeWindow(windowName);
         return;
       case 'minimize':
         console.log('minimizing...');
@@ -106,6 +107,12 @@ class Desktop extends Component {
         console.log('nothing...');
         return;
     }
+  }
+
+  closeWindow(windowName){
+    var copyState = this.state.windows;
+    delete copyState[windowName];
+    this.setState({ windows: copyState });
   }
 
   toggleExpend(windowName) {

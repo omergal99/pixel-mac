@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f30df27c26c62219717cd0a1bee95d9e",
+    "revision": "4b9242a3bba070c2e7ac1bd0cd78e569",
     "url": "/pixel-mac/index.html"
   },
   {
-    "revision": "0bd728e346a65453539f",
+    "revision": "44c25af7c53926235978",
     "url": "/pixel-mac/static/css/main.68312332.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pixel-mac/static/js/2.e2bc4550.chunk.js"
   },
   {
-    "revision": "0bd728e346a65453539f",
-    "url": "/pixel-mac/static/js/main.a5282ada.chunk.js"
+    "revision": "44c25af7c53926235978",
+    "url": "/pixel-mac/static/js/main.8351b54f.chunk.js"
   },
   {
     "revision": "aaf9befbd07b4be857d3",

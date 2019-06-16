@@ -27,7 +27,10 @@ export default (state = initialState, action) => {
     case 'closeWindow':
       copy = JSON.parse(JSON.stringify(state));
       delete copy.windows[action.payload.windowName];
-      console.log(copy)
+      return copy;
+    case 'addNewWindow':
+      copy = JSON.parse(JSON.stringify(state));
+      delete copy.windows[action.payload.windowName];
       return copy;
     default:
       return state;

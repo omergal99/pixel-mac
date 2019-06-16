@@ -24,31 +24,6 @@ class Desktop extends Component {
     currDragName: 'window1',
     pointerDiff: { x: 1, y: 1 },
     generalZIndex: { lastCurrDragName: '', num: 1 },
-    // windows: {
-    //   'window1': {
-    //     id: 201,
-    //     name: 'window1',
-    //     isOpen: true,
-    //     size: { x: 600 + 'px', y: 400 + 'px' },
-    //     prevSize: { x: 600 + 'px', y: 400 + 'px' },
-    //     location: { x: 20, y: 300 },
-    //     prevLocation: { x: 20, y: 300 },
-    //     zIndex: 0,
-    //     isExpend: false
-    //   }
-    //   ,
-    //   'window2': {
-    //     id: 202,
-    //     name: 'window2',
-    //     isOpen: true,
-    //     size: { x: 700 + 'px', y: 550 + 'px' },
-    //     prevSize: { x: 700 + 'px', y: 550 + 'px' },
-    //     location: { x: 190, y: 90 },
-    //     prevLocation: { x: 190, y: 90 },
-    //     zIndex: 0,
-    //     isExpend: false
-    //   }
-    // }
   }
 
   handleMove(ev) {
@@ -104,27 +79,19 @@ class Desktop extends Component {
   }
 
   windowActivated(windowName, clickType) {
-    console.log(windowName)
+    console.log(windowName, clickType)
     switch (clickType) {
       case 'close':
-        console.log('closing...');
-        this.closeWindow(windowName);
+        this.props.closeWindow(windowName);
         return;
       case 'minimize':
-        console.log('minimizing...');
         return;
       case 'expend':
-        console.log('expending...');
         this.toggleExpend(windowName);
         return;
       default:
-        console.log('nothing...');
         return;
     }
-  }
-
-  closeWindow(windowName) {
-    this.props.closeWindow(windowName);
   }
 
   toggleExpend(windowName) {

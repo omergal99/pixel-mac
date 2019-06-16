@@ -26,16 +26,33 @@ const initialState = {
 	}
 }
 
+var number = 3;
+
 function getWindows() {
 	return Promise.resolve(initialState);
 }
 
-function updateWindow(window) {
+function update(window) {
 	// HTTP REQUEST & ADD ID & UPDATE SUCCEDED
 	return Promise.resolve(window);
 }
 
+function getEmpty(){
+	return {
+		id: (200 + number),
+		name: `window${number++}`,
+		isOpen: true,
+		size: { x: 700 + 'px', y: 550 + 'px' },
+		prevSize: { x: 700 + 'px', y: 550 + 'px' },
+		location: { x: 120, y: 120 },
+		prevLocation: { x: 120, y: 120 },
+		zIndex: 0,
+		isExpend: false
+	}
+}
+
 export default {
 	getWindows,
-	updateWindow
+	update,
+	getEmpty
 }

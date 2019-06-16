@@ -9,7 +9,7 @@ function loadWindows() {
 
 function updateWindow(newWindow) {
   return async (dispatch) => {
-    const updatedWindow = await WindowsService.updateWindow(newWindow);
+    const updatedWindow = await WindowsService.update(newWindow);
     dispatch({ type: 'updateWindow', payload: { updatedWindow } })
   }
 }
@@ -19,9 +19,16 @@ function updateWindow(newWindow) {
 // }
 const closeWindow = (windowName) => dispatch => dispatch({ type: 'closeWindow', payload: { windowName } })
 
+function addWindow() {
+  return async (dispatch) => {
+    const newWindow = await WindowsService.getEmpty();
+    dispatch({ type: 'addNewWindow', payload: { newWindow } })
+  }
+}
 
 export default {
   loadWindows,
   updateWindow,
-  closeWindow
+  closeWindow,
+  addWindow
 }

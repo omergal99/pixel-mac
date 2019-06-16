@@ -11,4 +11,5 @@ After that install node modules:
 And then we can run the App:
 ### `yarn start`
 
-
+still work on it, but you can watch at:
+https://omergal99.github.io/pixel-mac/

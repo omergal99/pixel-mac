@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import actions from '../store/actions';
 
 import Folder from './Folder';
 
@@ -7,7 +10,7 @@ class Desktop extends Component {
   constructor(props) {
     super(props);
     this.handleMove = this.handleMove.bind(this);
-  }
+  } 
 
   state = {
     isDraging: false,
@@ -145,7 +148,13 @@ class Desktop extends Component {
     )
   }
 }
-export default Desktop;
+function mapStateToProps(state) {
+  console.log(state)
+  return {
+  }
+}
+
+export default connect(mapStateToProps, actions)(Desktop)
 
 
 // import React from 'react';

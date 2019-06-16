@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Folder = ({ window, MouseDown, clickActiveBar }) => (
-
   <div className="folder"
     style={{
       height: window.size.y, width: window.size.x,
@@ -18,16 +17,10 @@ const Folder = ({ window, MouseDown, clickActiveBar }) => (
       <label>Folder Name</label>
     </div>
     <div className="drag-drop" onMouseDown={MouseDown.bind(this)} data-name={window.name}></div>
-
-    <div className="options">
-
-    </div>
-    <div className="aside">
-
-    </div>
-    <div className="content">
-
-    </div>
+    
+    <div className="options"></div>
+    <div className="aside"></div>
+    <div className="content"></div>
 
   </div>
 )

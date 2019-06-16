@@ -10,42 +10,51 @@ class Desktop extends Component {
   constructor(props) {
     super(props);
     this.handleMove = this.handleMove.bind(this);
-  } 
+  }
+
+  componentDidMount() {
+    // actions.loadWindows(); // IN csae we have NOT dispatch 
+    this.props.loadWindows(); // IN csae of dispatch needed 
+  }
+
+ 
 
   state = {
     isDraging: false,
     currDragName: 'window1',
     pointerDiff: { x: 1, y: 1 },
     generalZIndex: { lastCurrDragName: '', num: 1 },
-    windows: {
-      'window1': {
-        name: 'window1',
-        isOpen: true,
-        size: { x: 600 + 'px', y: 400 + 'px' },
-        prevSize: { x: 600 + 'px', y: 400 + 'px' },
-        location: { x: 20, y: 300 },
-        prevLocation: { x: 20, y: 300 },
-        zIndex: 0,
-        isExpend: false
-      }
-      ,
-      'window2': {
-        name: 'window2',
-        isOpen: true,
-        size: { x: 700 + 'px', y: 550 + 'px' },
-        prevSize: { x: 700 + 'px', y: 550 + 'px' },
-        location: { x: 190, y: 90 },
-        prevLocation: { x: 190, y: 90 },
-        zIndex: 0,
-        isExpend: false
-      }
-    }
+    // windows: {
+    //   'window1': {
+    //     id: 201,
+    //     name: 'window1',
+    //     isOpen: true,
+    //     size: { x: 600 + 'px', y: 400 + 'px' },
+    //     prevSize: { x: 600 + 'px', y: 400 + 'px' },
+    //     location: { x: 20, y: 300 },
+    //     prevLocation: { x: 20, y: 300 },
+    //     zIndex: 0,
+    //     isExpend: false
+    //   }
+    //   ,
+    //   'window2': {
+    //     id: 202,
+    //     name: 'window2',
+    //     isOpen: true,
+    //     size: { x: 700 + 'px', y: 550 + 'px' },
+    //     prevSize: { x: 700 + 'px', y: 550 + 'px' },
+    //     location: { x: 190, y: 90 },
+    //     prevLocation: { x: 190, y: 90 },
+    //     zIndex: 0,
+    //     isExpend: false
+    //   }
+    // }
   }
 
   handleMove(ev) {
     // console.log('ev: ', ev);
-    if (this.state) {
-      var copyState = this.state.windows;
+    if (this.props) {
+      var copyState = this.props.windows;
 
       if (!this.state.isDraging) {
         var diffX = ev.clientX - copyState[this.state.currDragName].location.x;
@@ -57,7 +66,9 @@ class Desktop extends Component {
       var y = ev.clientY - this.state.pointerDiff.y;
       copyState[this.state.currDragName].location = { x, y }
       copyState[this.state.currDragName].prevLocation = { x, y }
-      this.setState({ windows: copyState, isDraging: true })
+      this.setState({ isDraging: true })
+
+      this.props.updateWindow(copyState[this.state.currDragName]);
     }
   }
 
@@ -84,11 +95,11 @@ class Desktop extends Component {
 
   orderFrontWindow() {
     if (this.state.currDragName !== this.state.generalZIndex.lastCurrDragName) {
-      var copyState = this.state.windows;
+      var copyState = this.props.windows;
       var heighestZ = this.state.generalZIndex.num;
       copyState[this.state.currDragName].zIndex = heighestZ;
       this.setState({ generalZIndex: { lastCurrDragName: this.state.currDragName, num: heighestZ + 1 } })
-      this.setState({ windows: copyState })
+      this.props.updateWindow(copyState[this.state.currDragName]);
     }
   }
 
@@ -112,14 +123,12 @@ class Desktop extends Component {
     }
   }
 
-  closeWindow(windowName){
-    var copyState = this.state.windows;
-    delete copyState[windowName];
-    this.setState({ windows: copyState });
+  closeWindow(windowName) {
+    this.props.closeWindow(windowName);
   }
 
   toggleExpend(windowName) {
-    var copyState = this.state.windows;
+    var copyState = this.props.windows;
     if (copyState[windowName].isExpend) {
       copyState[windowName].size = copyState[windowName].prevSize;
       copyState[windowName].location = copyState[windowName].prevLocation;
@@ -129,18 +138,16 @@ class Desktop extends Component {
       copyState[windowName].location = { x: 0, y: 19 };
       copyState[windowName].isExpend = true;
     }
-    this.setState({ windows: copyState });
+    this.props.updateWindow(copyState[windowName]);
   }
 
   render() {
-    var allWindows = Object.values(this.state.windows);
-    var openWindows = allWindows.map((window) => (
-      <Folder window={window}
-        clickActiveBar={this.windowActivated.bind(this)}
-        MouseDown={this.mouseDown.bind(this)}
-        key={window.name}
+    var openWindows = Object.values(this.props.windows).map((window) => {
+      return <Folder window={window} key={window.name}
+      clickActiveBar={this.windowActivated.bind(this)}
+      MouseDown={this.mouseDown.bind(this)}
       />
-    ))
+    })
     return (
       <div className="desktop">
         {openWindows}
@@ -148,11 +155,15 @@ class Desktop extends Component {
     )
   }
 }
+
 function mapStateToProps(state) {
-  console.log(state)
+  // console.log(state)
   return {
+    windows: state.windowsStore.windows
   }
 }
+
+
 
 export default connect(mapStateToProps, actions)(Desktop)
 

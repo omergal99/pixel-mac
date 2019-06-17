@@ -9,7 +9,8 @@ const initialState = {
 			location: { x: 20, y: 300 },
 			prevLocation: { x: 20, y: 300 },
 			zIndex: 0,
-			isExpend: false
+			isExpend: false,
+      isDraging:false
 		}
 		,
 		'window2': {
@@ -21,7 +22,8 @@ const initialState = {
 			location: { x: 190, y: 90 },
 			prevLocation: { x: 190, y: 90 },
 			zIndex: 0,
-			isExpend: false
+			isExpend: false,
+      isDraging:false
 		}
 	}
 }

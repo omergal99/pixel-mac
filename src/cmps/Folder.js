@@ -8,7 +8,7 @@ const Folder = ({ window, MouseDown, clickActiveBar }) => (
       zIndex: window.zIndex
     }} >
 
-    <div className="top">
+    <div className="top" >
       <div className="window-controls">
         <div onClick={ev => { ev.stopPropagation(); clickActiveBar(window.name, 'close') }} className="close"></div>
         <div onClick={ev => { ev.stopPropagation(); clickActiveBar(window.name, 'minimize') }} className="minimize"></div>
@@ -16,8 +16,10 @@ const Folder = ({ window, MouseDown, clickActiveBar }) => (
       </div>
       <label>Folder Name</label>
     </div>
-    <div className="drag-drop" onMouseDown={MouseDown.bind(this)} data-name={window.name}></div>
-    
+    <div className="drag-drop" 
+      onMouseDown={MouseDown} data-name={window.name}>
+    </div>
+
     <div className="options"></div>
     <div className="aside"></div>
     <div className="content"></div>

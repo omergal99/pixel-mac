@@ -10,6 +10,7 @@ class Desktop extends Component {
   constructor(props) {
     super(props);
     this.handleMove = this.handleMove.bind(this);
+    this.mouseDown = this.mouseDown.bind(this);
   }
 
   componentDidMount() {
@@ -17,43 +18,83 @@ class Desktop extends Component {
     this.props.loadWindows(); // IN csae of dispatch needed 
   }
 
- 
+
 
   state = {
-    isDraging: false,
     currDragName: 'window1',
     pointerDiff: { x: 1, y: 1 },
-    generalZIndex: { lastCurrDragName: '', num: 1 },
+    generalZIndex: { lastDragWindow: '', num: 1 },
   }
 
   handleMove(ev) {
     // console.log('ev: ', ev);
     if (this.props) {
-      var copyState = this.props.windows;
+      var currWindow = this.props.windows[this.state.currDragName];
 
-      if (!this.state.isDraging) {
-        var diffX = ev.clientX - copyState[this.state.currDragName].location.x;
-        var diffY = ev.clientY - copyState[this.state.currDragName].location.y;
+      if (!currWindow.isDraging) {
+        var diffX = ev.clientX - currWindow.location.x;
+        var diffY = ev.clientY - currWindow.location.y;
         this.setState({ pointerDiff: { x: diffX, y: diffY } });
       }
 
-      var x = ev.clientX - this.state.pointerDiff.x;
-      var y = ev.clientY - this.state.pointerDiff.y;
-      copyState[this.state.currDragName].location = { x, y }
-      copyState[this.state.currDragName].prevLocation = { x, y }
-      this.setState({ isDraging: true })
+      currWindow.location = this.getLocationAccordingBorders(ev, currWindow);
+      currWindow.prevLocation = currWindow.location;
+      currWindow.isDraging = true;
 
-      this.props.updateWindow(copyState[this.state.currDragName]);
+      this.props.updateWindow(currWindow);
     }
   }
 
-  // console.log('window',window.innerHeight);
-  // console.log('window',window.innerWidth);
+  getLocationAccordingBorders(ev, currWindow) {
+    var x = ev.clientX - this.state.pointerDiff.x;
+    var y = ev.clientY - this.state.pointerDiff.y;
+    var maxX = 2 + currWindow.location.x + Number(currWindow.size.x.slice(0, -2));
+    var maxY = 2 + currWindow.location.y + Number(currWindow.size.y.slice(0, -2));
+    if (x >= 0 && y >= 0 && window.innerWidth > maxX && window.innerHeight > maxY) {
+      return { x, y };
+    } else {
+      if (x <= 0 && y >= 0 && window.innerHeight > maxY) {
+        return { x: currWindow.location.x, y };
+      }
+      if (y <= 0 && x >= 0 && window.innerWidth > maxX) {
+        return { x, y: currWindow.location.y };
+      }
+      if (x >= 0 && y >= 0 && window.innerWidth <= maxX && window.innerHeight > maxY) {
+        if (x < currWindow.location.x) {
+          return { x, y };
+        } else {
+          if (window.innerHeight > maxY) {
+            return { x: currWindow.location.x, y };
+          }
+        }
+      }
+      if (x >= 0 && y >= 0 && window.innerWidth > maxX && window.innerHeight <= maxY) {
+        if (y < currWindow.location.y) {
+          return { x, y };
+        } else {
+          if (window.innerWidth > maxX) {
+            return { x, y: currWindow.location.y };
+          }
+        }
+      }
+      if (window.innerHeight <= maxY && window.innerWidth <= maxX) {
+        if (y < currWindow.location.y && x < currWindow.location.x) {
+          return { x, y };
+        } else {
+          if (y < currWindow.location.y) {
+            return { x: currWindow.location.x, y };
+          }
+          if (x < currWindow.location.x) {
+            return { x, y: currWindow.location.y };
+          }
+        }
+      }
+    }
+    return { x: currWindow.location.x, y: currWindow.location.y }
+  }
+
 
   mouseDown(ev) {
-    // console.log('ev.target: ', ev.target);
-    // console.log(ev.target.getAttribute('data-name'));
-
     // this.setState({ currDragName: ev.target.getAttribute('data-name') });
     this.setState({ currDragName: ev.target.dataset.name }, () => {
       this.orderFrontWindow();
@@ -62,19 +103,20 @@ class Desktop extends Component {
     document.addEventListener('mousemove', this.handleMove, false);
 
     document.onmouseup = () => {
-      // console.log('onmouseup >> STOPING mousemove EventListener');
       document.removeEventListener('mousemove', this.handleMove, false);
-      this.setState({ isDraging: false })
+      var currWindow = this.props.windows[this.state.currDragName];
+      currWindow.isDraging = false;
+      this.props.updateWindow(currWindow);
     };
   }
 
   orderFrontWindow() {
-    if (this.state.currDragName !== this.state.generalZIndex.lastCurrDragName) {
-      var copyState = this.props.windows;
+    if (this.state.currDragName !== this.state.generalZIndex.lastDragWindow) {
+      var currWindow = this.props.windows[this.state.currDragName];
       var heighestZ = this.state.generalZIndex.num;
-      copyState[this.state.currDragName].zIndex = heighestZ;
-      this.setState({ generalZIndex: { lastCurrDragName: this.state.currDragName, num: heighestZ + 1 } })
-      this.props.updateWindow(copyState[this.state.currDragName]);
+      currWindow.zIndex = heighestZ;
+      this.setState({ generalZIndex: { lastDragWindow: this.state.currDragName, num: heighestZ + 1 } })
+      this.props.updateWindow(currWindow);
     }
   }
 
@@ -95,24 +137,24 @@ class Desktop extends Component {
   }
 
   toggleExpend(windowName) {
-    var copyState = this.props.windows;
-    if (copyState[windowName].isExpend) {
-      copyState[windowName].size = copyState[windowName].prevSize;
-      copyState[windowName].location = copyState[windowName].prevLocation;
-      copyState[windowName].isExpend = false;
+    var currWindow = this.props.windows[windowName];
+    if (currWindow.isExpend) {
+      currWindow.size = currWindow.prevSize;
+      currWindow.location = currWindow.prevLocation;
+      currWindow.isExpend = false;
     } else {
-      copyState[windowName].size = { x: '100%', y: 'calc(100% - 19px)' };
-      copyState[windowName].location = { x: 0, y: 19 };
-      copyState[windowName].isExpend = true;
+      currWindow.size = { x: '100%', y: 'calc(100% - 19px)' };
+      currWindow.location = { x: 0, y: 19 };
+      currWindow.isExpend = true;
     }
-    this.props.updateWindow(copyState[windowName]);
+    this.props.updateWindow(currWindow);
   }
 
   render() {
     var openWindows = Object.values(this.props.windows).map((window) => {
       return <Folder window={window} key={window.name}
-      clickActiveBar={this.windowActivated.bind(this)}
-      MouseDown={this.mouseDown.bind(this)}
+        clickActiveBar={this.windowActivated.bind(this)}
+        MouseDown={this.mouseDown}
       />
     })
     return (
@@ -129,8 +171,6 @@ function mapStateToProps(state) {
     windows: state.windowsStore.windows
   }
 }
-
-
 
 export default connect(mapStateToProps, actions)(Desktop)
 

@@ -18,8 +18,6 @@ class Desktop extends Component {
     this.props.loadWindows(); // IN csae of dispatch needed 
   }
 
-
-
   state = {
     currDragName: 'window1',
     pointerDiff: { x: 1, y: 1 },
@@ -50,64 +48,44 @@ class Desktop extends Component {
     var y = ev.clientY - this.state.pointerDiff.y;
     var maxX = 2 + currWindow.location.x + Number(currWindow.size.x.slice(0, -2));
     var maxY = 2 + currWindow.location.y + Number(currWindow.size.y.slice(0, -2));
-    if (x >= 0 && y >= 0 && window.innerWidth > maxX && window.innerHeight > maxY) {
-      return { x, y };
-    } else {
-      if (x <= 0 && y >= 0 && window.innerHeight > maxY) {
-        return { x: currWindow.location.x, y };
-      }
-      if (y <= 0 && x >= 0 && window.innerWidth > maxX) {
-        return { x, y: currWindow.location.y };
-      }
+    if (x >= 0 && y >= 0 && window.innerWidth > maxX && window.innerHeight > maxY) return { x, y };
+    else {
+      if (x <= 0 && y >= 0 && window.innerHeight > maxY) return { x: currWindow.location.x, y };
+      if (y <= 0 && x >= 0 && window.innerWidth > maxX) return { x, y: currWindow.location.y };
       if (x >= 0 && y >= 0 && window.innerWidth <= maxX && window.innerHeight > maxY) {
-        if (x < currWindow.location.x) {
-          return { x, y };
-        } else {
-          if (window.innerHeight > maxY) {
-            return { x: currWindow.location.x, y };
-          }
-        }
+        if (x < currWindow.location.x) return { x, y };
+        else if (window.innerHeight > maxY) return { x: currWindow.location.x, y };
       }
       if (x >= 0 && y >= 0 && window.innerWidth > maxX && window.innerHeight <= maxY) {
-        if (y < currWindow.location.y) {
-          return { x, y };
-        } else {
-          if (window.innerWidth > maxX) {
-            return { x, y: currWindow.location.y };
-          }
-        }
+        if (y < currWindow.location.y) return { x, y };
+        else if (window.innerWidth > maxX) return { x, y: currWindow.location.y };
       }
       if (window.innerHeight <= maxY && window.innerWidth <= maxX) {
-        if (y < currWindow.location.y && x < currWindow.location.x) {
-          return { x, y };
-        } else {
-          if (y < currWindow.location.y) {
-            return { x: currWindow.location.x, y };
-          }
-          if (x < currWindow.location.x) {
-            return { x, y: currWindow.location.y };
-          }
+        if (y < currWindow.location.y && x < currWindow.location.x) return { x, y };
+        else {
+          if (y < currWindow.location.y) return { x: currWindow.location.x, y };
+          if (x < currWindow.location.x) return { x, y: currWindow.location.y };
         }
       }
     }
-    return { x: currWindow.location.x, y: currWindow.location.y }
+    return { x: currWindow.location.x, y: currWindow.location.y };
   }
 
 
   mouseDown(ev) {
     // this.setState({ currDragName: ev.target.getAttribute('data-name') });
     this.setState({ currDragName: ev.target.dataset.name }, () => {
-      this.orderFrontWindow();
+      this.orderFrontWindow()
+      document.addEventListener('mousemove', this.handleMove, false);
+      document.onmouseup = () => {
+        document.removeEventListener('mousemove', this.handleMove, false);
+        var currWindow = this.props.windows[this.state.currDragName];
+        if(currWindow){
+          currWindow.isDraging = false;
+          this.props.updateWindow(currWindow);
+        }
+      }
     });
-
-    document.addEventListener('mousemove', this.handleMove, false);
-
-    document.onmouseup = () => {
-      document.removeEventListener('mousemove', this.handleMove, false);
-      var currWindow = this.props.windows[this.state.currDragName];
-      currWindow.isDraging = false;
-      this.props.updateWindow(currWindow);
-    };
   }
 
   orderFrontWindow() {
@@ -150,6 +128,10 @@ class Desktop extends Component {
     this.props.updateWindow(currWindow);
   }
 
+  addNewWindow() {
+    this.props.addWindow(this.state.generalZIndex.num);
+  }
+
   render() {
     var openWindows = Object.values(this.props.windows).map((window) => {
       return <Folder window={window} key={window.name}
@@ -159,6 +141,7 @@ class Desktop extends Component {
     })
     return (
       <div className="desktop">
+        <button style={{ float: 'right' }} onClick={this.addNewWindow.bind(this)}>ADD WINDOW</button>
         {openWindows}
       </div>
     )

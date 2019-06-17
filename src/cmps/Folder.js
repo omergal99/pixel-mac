@@ -14,7 +14,7 @@ const Folder = ({ window, MouseDown, clickActiveBar }) => (
         <div onClick={ev => { ev.stopPropagation(); clickActiveBar(window.name, 'minimize') }} className="minimize"></div>
         <div onClick={ev => { ev.stopPropagation(); clickActiveBar(window.name, 'expend') }} className="expend"></div>
       </div>
-      <label>Folder Name</label>
+      <label>{window.name}</label>
     </div>
     <div className="drag-drop" 
       onMouseDown={MouseDown} data-name={window.name}>

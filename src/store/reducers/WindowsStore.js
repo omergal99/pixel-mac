@@ -10,7 +10,7 @@ const initialState = {
       prevLocation: { x: 20, y: 300 },
       zIndex: 0,
       isExpend: false,
-      isDraging:false
+      isDraging: false
     }
   }
 }
@@ -20,18 +20,18 @@ export default (state = initialState, action) => {
   var copy;
   switch (action.type) {
     case 'loadWindows':
-      return action.payload.windows;
+      return action.payload;
     case 'updateWindow':
       copy = JSON.parse(JSON.stringify(state));
-      copy.windows[action.payload.updatedWindow.name] = action.payload.updatedWindow;
+      copy.windows[action.payload.name] = action.payload;
       return copy;
     case 'closeWindow':
       copy = JSON.parse(JSON.stringify(state));
-      delete copy.windows[action.payload.windowName];
+      delete copy.windows[action.payload];
       return copy;
     case 'addNewWindow':
       copy = JSON.parse(JSON.stringify(state));
-      delete copy.windows[action.payload.windowName];
+      copy.windows[action.payload.name] = action.payload;
       return copy;
     default:
       return state;

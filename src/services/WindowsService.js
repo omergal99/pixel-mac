@@ -49,7 +49,8 @@ function getEmpty(){
 		location: { x: 120, y: 120 },
 		prevLocation: { x: 120, y: 120 },
 		zIndex: 0,
-		isExpend: false
+		isExpend: false,
+		isDraging: false
 	}
 }
 

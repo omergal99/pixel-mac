@@ -141,7 +141,7 @@ class Desktop extends Component {
     })
     return (
       <div className="desktop">
-        <button style={{ float: 'right' }} onClick={this.addNewWindow.bind(this)}>ADD WINDOW</button>
+        <button onClick={this.addNewWindow.bind(this)}>ADD WINDOW</button>
         {openWindows}
       </div>
     )

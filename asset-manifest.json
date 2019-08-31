@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/pixel-mac/static/css/main.68312332.chunk.css",
-    "main.js": "/pixel-mac/static/js/main.ff529098.chunk.js",
-    "main.js.map": "/pixel-mac/static/js/main.ff529098.chunk.js.map",
+    "main.css": "/pixel-mac/static/css/main.b1ccaa27.chunk.css",
+    "main.js": "/pixel-mac/static/js/main.e80b3068.chunk.js",
+    "main.js.map": "/pixel-mac/static/js/main.e80b3068.chunk.js.map",
     "runtime~main.js": "/pixel-mac/static/js/runtime~main.be444ab6.js",
     "runtime~main.js.map": "/pixel-mac/static/js/runtime~main.be444ab6.js.map",
     "static/js/2.db4eb574.chunk.js": "/pixel-mac/static/js/2.db4eb574.chunk.js",
     "static/js/2.db4eb574.chunk.js.map": "/pixel-mac/static/js/2.db4eb574.chunk.js.map",
     "index.html": "/pixel-mac/index.html",
-    "precache-manifest.ec67f658c38ac9f57a769715bc086919.js": "/pixel-mac/precache-manifest.ec67f658c38ac9f57a769715bc086919.js",
+    "precache-manifest.b5bb508f65779e8bb7aff1cfd8bbab50.js": "/pixel-mac/precache-manifest.b5bb508f65779e8bb7aff1cfd8bbab50.js",
     "service-worker.js": "/pixel-mac/service-worker.js",
-    "static/css/main.68312332.chunk.css.map": "/pixel-mac/static/css/main.68312332.chunk.css.map",
+    "static/css/main.b1ccaa27.chunk.css.map": "/pixel-mac/static/css/main.b1ccaa27.chunk.css.map",
     "static/media/App.scss": "/pixel-mac/static/media/window-options.58f71e96.png"
   }
 }

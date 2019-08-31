@@ -1,4 +1,6 @@
-﻿﻿## my-pixel-mac - Explanation
+quick look how the project looks up to now: https://omergal99.github.io/pixel-mac/
+
+## my-pixel-mac - Explanation
 
 ### USE Node version v10.15.2
 
@@ -11,5 +13,3 @@ After that install node modules:
 And then we can run the App:
 ### `yarn start`
 
-still work on it, but you can watch at:
-https://omergal99.github.io/pixel-mac/

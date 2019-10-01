@@ -46,6 +46,10 @@ class Desktop extends Component {
   getLocationAccordingBorders(ev, currWindow) {
     var x = ev.clientX - this.state.pointerDiff.x;
     var y = ev.clientY - this.state.pointerDiff.y;
+    const rightMaxX = window.innerWidth - Number(currWindow.size.x.slice(0, -2));
+    const downMaxY = window.innerHeight - Number(currWindow.size.y.slice(0, -2));
+    if (x > rightMaxX) x = rightMaxX;
+    if (y > downMaxY) y = downMaxY;
     var maxX = 2 + currWindow.location.x + Number(currWindow.size.x.slice(0, -2));
     var maxY = 2 + currWindow.location.y + Number(currWindow.size.y.slice(0, -2));
     if (x >= 0 && y >= 0 && window.innerWidth > maxX && window.innerHeight > maxY) return { x, y };
@@ -75,12 +79,12 @@ class Desktop extends Component {
   mouseDown(ev) {
     // this.setState({ currDragName: ev.target.getAttribute('data-name') });
     this.setState({ currDragName: ev.target.dataset.name }, () => {
-      this.orderFrontWindow()
+      this.orderFrontWindow();
       document.addEventListener('mousemove', this.handleMove, false);
       document.onmouseup = () => {
         document.removeEventListener('mousemove', this.handleMove, false);
         var currWindow = this.props.windows[this.state.currDragName];
-        if(currWindow){
+        if (currWindow) {
           currWindow.isDraging = false;
           this.props.updateWindow(currWindow);
         }
@@ -99,7 +103,7 @@ class Desktop extends Component {
   }
 
   windowActivated(windowName, clickType) {
-    console.log(windowName, clickType)
+    console.log(windowName, clickType);
     switch (clickType) {
       case 'close':
         this.props.closeWindow(windowName);
